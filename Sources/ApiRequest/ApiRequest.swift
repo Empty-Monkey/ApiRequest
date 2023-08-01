@@ -1,7 +1,7 @@
 import Foundation
 
-public class ApiRequest {
-    private var request: URLRequest
+open class ApiRequest {
+    public var request: URLRequest
     private var url: URL
     
     public enum ApiRequestError: Error {
@@ -67,41 +67,7 @@ public class ApiRequest {
         return self
     }
     
-    public func get(completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        self.send(method: HTTPMethod.get, completionHandler: completionHandler)
-    }
-    
-    public func post(completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        self.send(method: HTTPMethod.post, completionHandler: completionHandler)
-    }
-    
-    public func put(completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        self.send(method: HTTPMethod.put, completionHandler: completionHandler)
-    }
-
-    public func patch(completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        self.send(method: HTTPMethod.patch, completionHandler: completionHandler)
-    }
-
-    public func delete(completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        self.send(method: HTTPMethod.delete, completionHandler: completionHandler)
-    }
-    
-    public func head(completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        self.send(method: HTTPMethod.head, completionHandler: completionHandler)
-    }
-
-    public func options(completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        self.send(method: HTTPMethod.options, completionHandler: completionHandler)
-    }
-    
-    public func connect(completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        self.send(method: HTTPMethod.connect, completionHandler: completionHandler)
-    }
-}
-
-extension ApiRequest {
-    private func send(method: HTTPMethod, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    public func send(_ method: HTTPMethod, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         self.request.httpMethod = method.rawValue
         
         if (self.httpMethodSupportsBody(method)) {
