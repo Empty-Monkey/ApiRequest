@@ -67,6 +67,30 @@ open class ApiRequest {
         return self
     }
     
+    @discardableResult
+    public func withBody(_ body: Encodable) -> Self {
+        let encoder = JSONEncoder()
+        
+        #if DEBUG
+        encoder.outputFormatting = .prettyPrinted
+        #endif
+        
+        var jsonString: String = ""
+        
+        do {
+            let jsonData = try encoder.encode(body)
+            jsonString = String(data: jsonData, encoding: .utf8) ?? ""
+        } catch {
+            print("Error encoding object to JSON: \(error)")
+            
+            return self
+        }
+        
+        self.request.httpBody = jsonString.data(using: .utf8)
+        
+        return self
+    }
+    
     public func send(_ method: HTTPMethod, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
         self.request.httpMethod = method.rawValue
         
