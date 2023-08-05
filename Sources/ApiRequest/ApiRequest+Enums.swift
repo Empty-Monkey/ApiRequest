@@ -1,4 +1,5 @@
 extension ApiRequest {
+    /// An enum defining supported HTTP methods
     public enum HTTPMethod: String {
         case get = "GET"
         case post = "POST"
@@ -10,6 +11,7 @@ extension ApiRequest {
         case connect = "CONNECT"
     }
 
+    /// An enum containting some of the most common content types for HTTP requests
     public enum HTTPContentType: String {
         case json = "application/json"
         case xml = "application/xml"
@@ -24,6 +26,7 @@ extension ApiRequest {
         case gifImage = "image/gif"
     }
     
+    /// An enum containing some of the most commonly used headers
     public enum HTTPHeader: String {
         case accept = "Accept"
         case acceptCharset = "Accept-Charset"
